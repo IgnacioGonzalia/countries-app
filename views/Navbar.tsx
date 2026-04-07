@@ -1,0 +1,46 @@
+import { Image, StyleSheet } from "react-native";
+import { useTheme } from "../core/context/ThemeContext";
+import { typhography } from "../core/theme/Typhography";
+import Row from "../components/layout/Row";
+import Button from "../components/Button";
+import TextComponent from "../components/TextComponent";
+
+const Navbar = () => {
+  const { colors, theme, toggleTheme } = useTheme();
+
+  const icons = {
+    light: require("../assets/images/moon-outline.png"),
+    dark: require("../assets/images/filled-moon.png"),
+  };
+
+  return (
+    <Row
+      justify="space-between"
+      align="center"
+      style={{ ...styles.container, backgroundColor: colors.navbarBg }}
+    >
+      <TextComponent text="Where in the world?" textStyle={typhography.logo} />
+      <Button
+        onPress={toggleTheme}
+        text="Dark Mode"
+        textStyle={typhography.themeToggle}
+        icon={<Image source={icons[theme]} />}
+        gap={8}
+      />
+    </Row>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    paddingHorizontal: 16,
+    paddingVertical: 30,
+    elevation: 3,
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 5 },
+    shadowOpacity: 0.05,
+    shadowRadius: 3.84,
+  },
+});
+
+export default Navbar;

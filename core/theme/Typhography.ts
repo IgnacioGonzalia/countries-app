@@ -16,4 +16,8 @@ export const typhography = StyleSheet.create({
     fontSize: 14,
     lineHeight: 20,
   },
+  themeToggle: {
+    fontFamily: "NunitoSansSemiBold",
+    fontSize: 12,
+  },
 });

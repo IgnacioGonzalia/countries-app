@@ -12,6 +12,7 @@ interface RowProps {
   gap?: number;
   wrap?: boolean;
   style?: ViewStyle;
+  reverse?: boolean;
 }
 
 const Row = ({
@@ -21,11 +22,12 @@ const Row = ({
   gap = 0,
   wrap = false,
   style,
+  reverse = false,
 }: RowProps) => {
   return (
     <View
       style={{
-        flexDirection: "row",
+        flexDirection: reverse ? "row-reverse" : "row",
         alignItems: align,
         justifyContent: justify,
         flexWrap: wrap ? "wrap" : "nowrap",

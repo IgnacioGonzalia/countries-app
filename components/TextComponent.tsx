@@ -1,4 +1,5 @@
 import { Text, TextProps, TextStyle, View, ViewStyle } from "react-native";
+import { useTheme } from "../core/context/ThemeContext";
 
 interface TextComponentProps {
   text: string | number;
@@ -15,10 +16,12 @@ const TextComponent = ({
   style,
   props,
 }: TextComponentProps) => {
+  const { colors } = useTheme();
+
   return (
     <View style={style}>
       <Text
-        style={textStyle}
+        style={[{ color: colors.text }, textStyle]}
         numberOfLines={numberOfLines ?? undefined}
         ellipsizeMode={numberOfLines ? "tail" : undefined}
         {...props}

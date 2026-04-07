@@ -11,6 +11,7 @@ interface ColumnProps {
     | "space-around";
   gap?: number;
   style?: ViewStyle;
+  reverse?: boolean;
 }
 
 const Column = ({
@@ -19,11 +20,12 @@ const Column = ({
   justify = "flex-start",
   gap = 0,
   style,
+  reverse = false,
 }: ColumnProps) => {
   return (
     <View
       style={{
-        flexDirection: "column",
+        flexDirection: reverse ? "column-reverse" : "column",
         alignItems: align,
         justifyContent: justify,
         gap: gap,

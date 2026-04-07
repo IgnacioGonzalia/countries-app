@@ -1,21 +1,15 @@
 import { SafeAreaView } from "react-native-safe-area-context";
-import TextComponent from "../components/TextComponent";
-import { typhography } from "../core/theme/Typhography";
-import { StyleSheet } from "react-native";
+import { useTheme } from "../core/context/ThemeContext";
+import Navbar from "../views/Navbar";
 
 const HomeScreen = () => {
+  const { colors } = useTheme();
+
   return (
-    <SafeAreaView style={styles.container}>
-      <TextComponent text="Where in the world?" textStyle={typhography.logo} />
+    <SafeAreaView style={{ flex: 1, backgroundColor: colors.navbarBg }}>
+      <Navbar />
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#808080",
-  },
-});
 
 export default HomeScreen;
