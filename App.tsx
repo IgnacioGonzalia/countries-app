@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { StyleSheet } from "react-native";
-import { typhography, loadFonts } from "./core/theme/Typhography";
-import Column from "./components/layout/Column";
-import TextComponent from "./components/TextComponent";
+import { loadFonts } from "./core/theme/Typhography";
+import { StatusBar } from "expo-status-bar";
+import { SafeAreaProvider } from "react-native-safe-area-context";
+import HomeScreen from "./screens/HomeScreen";
 
 export default function App() {
   const [fontsLoaded, setFontsLoaded] = useState(false);
@@ -19,15 +19,9 @@ export default function App() {
   if (!fontsLoaded) return null;
 
   return (
-    <Column align="center" justify="center" style={styles.container}>
-      <TextComponent text="Where in the world?" textStyle={typhography.logo} />
-    </Column>
+    <SafeAreaProvider>
+      <StatusBar style="auto" />
+      <HomeScreen />
+    </SafeAreaProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-  },
-});
