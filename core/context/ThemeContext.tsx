@@ -6,6 +6,7 @@ import {
   useCallback,
 } from "react";
 import { Colors } from "../theme/Colors";
+import { useThemePersistence } from "./useThemePersistence";
 
 type Theme = "light" | "dark";
 
@@ -17,6 +18,7 @@ const ThemeCtx = createContext({
 
 export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
   const [theme, setTheme] = useState<Theme>("light");
+  useThemePersistence(theme, setTheme);
 
   const toggleTheme = useCallback(
     () => setTheme((prev) => (prev === "light" ? "dark" : "light")),
