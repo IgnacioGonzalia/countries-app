@@ -4,7 +4,7 @@ import { useTheme } from "../core/context/ThemeContext";
 import { getAllCountries } from "../services/CountriesServices";
 import { ScrollView } from "react-native";
 import { GridCountry } from "../core/types/GridCountry";
-import { typhography } from "../core/theme/Typhography";
+import { typography } from "../core/theme/Typography";
 import Navbar from "../views/Navbar";
 import Loader from "../views/Loader";
 import CountryGrid from "../views/CountryGrid";
@@ -37,7 +37,7 @@ const HomeScreen = () => {
     if (loading) return <Loader />;
     if (errorText)
       return (
-        <TextComponent text={errorText} textStyle={typhography.errorText} />
+        <TextComponent text={errorText} textStyle={typography.errorText} />
       );
     return <CountryGrid countries={countries} />;
   };

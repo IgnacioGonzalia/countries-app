@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { loadFonts } from "./core/theme/Typhography";
+import { loadFonts } from "./core/theme/Typography";
 import { StatusBar } from "expo-status-bar";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { ThemeProvider, useTheme } from "./core/context/ThemeContext";

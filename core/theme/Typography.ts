@@ -3,14 +3,14 @@ import * as Font from "expo-font";
 
 export const loadFonts = async () => {
   await Font.loadAsync({
-    NunitoSansLight: require("../../assets/typhography/NunitoSans-Light.ttf"),
-    NunitoSansRegular: require("../../assets/typhography/NunitoSans-Regular.ttf"),
-    NunitoSansSemiBold: require("../../assets/typhography/NunitoSans-SemiBold.ttf"),
-    NunitoSansExtraBold: require("../../assets/typhography/NunitoSans-ExtraBold.ttf"),
+    NunitoSansLight: require("../../assets/typography/NunitoSans-Light.ttf"),
+    NunitoSansRegular: require("../../assets/typography/NunitoSans-Regular.ttf"),
+    NunitoSansSemiBold: require("../../assets/typography/NunitoSans-SemiBold.ttf"),
+    NunitoSansExtraBold: require("../../assets/typography/NunitoSans-ExtraBold.ttf"),
   });
 };
 
-export const typhography = StyleSheet.create({
+export const typography = StyleSheet.create({
   logo: {
     fontFamily: "NunitoSansExtraBold",
     fontSize: 14,

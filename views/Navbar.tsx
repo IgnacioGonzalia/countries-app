@@ -1,6 +1,6 @@
 import { Image, StyleSheet } from "react-native";
 import { useTheme } from "../core/context/ThemeContext";
-import { typhography } from "../core/theme/Typhography";
+import { typography } from "../core/theme/Typography";
 import Row from "../components/layout/Row";
 import Button from "../components/Button";
 import TextComponent from "../components/TextComponent";
@@ -19,11 +19,11 @@ const Navbar = () => {
       align="center"
       style={{ ...styles.container, backgroundColor: colors.navbarBg }}
     >
-      <TextComponent text="Where in the world?" textStyle={typhography.logo} />
+      <TextComponent text="Where in the world?" textStyle={typography.logo} />
       <Button
         onPress={toggleTheme}
         text="Dark Mode"
-        textStyle={typhography.themeToggle}
+        textStyle={typography.themeToggle}
         icon={<Image source={icons[theme]} />}
         gap={8}
       />
