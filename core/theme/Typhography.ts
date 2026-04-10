@@ -20,4 +20,11 @@ export const typhography = StyleSheet.create({
     fontFamily: "NunitoSansSemiBold",
     fontSize: 12,
   },
+  errorText: {
+    fontFamily: "NunitoSansSemiBold",
+    fontSize: 14,
+    color: "red",
+    marginTop: 50,
+    textAlign: "center",
+  },
 });
