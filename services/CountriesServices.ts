@@ -5,7 +5,7 @@ const api = axios.create({
 });
 
 export const getAllCountries = async () => {
-  const flags = "name,flag,population,region,capital,cca3";
-  const response = await api.get(`/all?fields=${flags}`);
+  const fields = "name,flags,population,region,capital,cca3";
+  const response = await api.get(`/all?fields=${fields}`);
   return response.data;
 };

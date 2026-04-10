@@ -1,10 +1,14 @@
 export interface GridCountry {
   name: {
     common: string;
-    nativeName: any;
+    nativeName: object;
     official: string;
   };
-  flag: string;
+  flags: {
+    alt: string;
+    png: string;
+    svg: string;
+  };
   population: number;
   region: string;
   capital: string[];

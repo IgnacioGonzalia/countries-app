@@ -4,11 +4,9 @@ import { useTheme } from "../core/context/ThemeContext";
 import { getAllCountries } from "../services/CountriesServices";
 import { ScrollView } from "react-native";
 import { GridCountry } from "../core/types/GridCountry";
-import { typography } from "../core/theme/Typography";
 import Navbar from "../views/Navbar";
-import Loader from "../views/Loader";
 import CountryGrid from "../views/CountryGrid";
-import TextComponent from "../components/TextComponent";
+import Space from "../components/layout/Space";
 
 const HomeScreen = () => {
   const { colors } = useTheme();
@@ -33,20 +31,25 @@ const HomeScreen = () => {
     getCountries();
   }, []);
 
-  const renderContent = () => {
-    if (loading) return <Loader />;
-    if (errorText)
-      return (
-        <TextComponent text={errorText} textStyle={typography.errorText} />
-      );
-    return <CountryGrid countries={countries} />;
-  };
-
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: colors.navbarBg }}>
+    <SafeAreaView
+      edges={["top"]}
+      style={{ flex: 1, backgroundColor: colors.navbarBg }}
+    >
       <Navbar />
-      <ScrollView showsVerticalScrollIndicator={false}>
-        {renderContent()}
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={{ backgroundColor: colors.background }}
+      >
+        <Space height={32} />
+
+        <CountryGrid
+          countries={countries}
+          loading={loading}
+          errorText={errorText}
+        />
+
+        <Space height={64} />
       </ScrollView>
     </SafeAreaView>
   );

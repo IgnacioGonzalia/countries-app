@@ -27,4 +27,19 @@ export const typography = StyleSheet.create({
     marginTop: 50,
     textAlign: "center",
   },
+  countryCardName: {
+    fontFamily: "NunitoSansExtraBold",
+    fontSize: 16,
+    lineHeight: 26,
+  },
+  countryCardDataLabel: {
+    fontFamily: "NunitoSansSemiBold",
+    fontSize: 14,
+    lineHeight: 16,
+  },
+  countryCardData: {
+    fontFamily: "NunitoSansLight",
+    fontSize: 14,
+    lineHeight: 16,
+  },
 });

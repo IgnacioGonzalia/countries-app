@@ -1,15 +1,116 @@
+import { useEffect, useState } from "react";
+import { Image, StyleSheet } from "react-native";
 import { GridCountry } from "../core/types/GridCountry";
+import { useTheme } from "../core/context/ThemeContext";
+import { typography } from "../core/theme/Typography";
+import Space from "../components/layout/Space";
 import Column from "../components/layout/Column";
+import Row from "../components/layout/Row";
 import TextComponent from "../components/TextComponent";
+import Loader from "./Loader";
 
-const CountryGrid = ({ countries }: { countries: GridCountry[] }) => {
+interface CountryGridProps {
+  countries: GridCountry[];
+  loading: boolean;
+  errorText: string | null;
+}
+
+// Module-level cache: lives outside the component so it persists across renders and re-mounts.
+// Maps each flag URL to its calculated aspect ratio (width / height).
+// This way, Image.getSize is only called once per unique URL — not once per card per render.
+const flagRatioCache = new Map<string, number>();
+
+const renderDataRow = (label: string, data: number | string) => (
+  <Row>
+    <TextComponent
+      text={`${label}: `}
+      textStyle={typography.countryCardDataLabel}
+    />
+    {/* Review south africa and palestine capitals, there are more than one, and may broke the card limits */}
+    <TextComponent
+      text={data === null ? "-" : String(data)}
+      textStyle={typography.countryCardData}
+    />
+  </Row>
+);
+
+const CountryCard = ({ country }: { country: GridCountry }) => {
+  const { colors } = useTheme();
+  const [aspectRatio, setAspectRatio] = useState(3 / 2);
+
+  useEffect(() => {
+    const url = country?.flags?.png;
+    if (!url) return;
+
+    // If we already fetched this flag's dimensions before, reuse the cached ratio.
+    if (flagRatioCache.has(url)) {
+      setAspectRatio(flagRatioCache.get(url)!);
+      return;
+    }
+
+    // Otherwise, fetch the real dimensions from the image URL,
+    // store the result in the cache, and update the component state.
+    Image.getSize(
+      url,
+      (w, h) => {
+        const ratio = w / h;
+        flagRatioCache.set(url, ratio);
+        setAspectRatio(ratio);
+      },
+      () => {}, // silently fall back to the default 3/2 ratio on error
+    );
+  }, [country?.flags?.png]);
+
   return (
-    <Column align="center" justify="center" gap={10}>
+    <Column style={{ ...styles.container, backgroundColor: colors.cardBg }}>
+      <Image
+        source={{ uri: country?.flags?.png }}
+        style={[styles.flag, { aspectRatio }]}
+      />
+
+      <Space height={24} />
+
+      <Column style={{ paddingHorizontal: 24 }} gap={16}>
+        <TextComponent
+          text={country?.name?.common ?? "-"}
+          textStyle={typography.countryCardName}
+        />
+        <Column gap={8}>
+          {renderDataRow("Population", country?.population?.toLocaleString())}
+          {renderDataRow("Region", country?.region)}
+          {renderDataRow("Capital", country?.capital?.join(", "))}
+        </Column>
+      </Column>
+
+      <Space height={46} />
+    </Column>
+  );
+};
+
+const CountryGrid = ({ countries, loading, errorText }: CountryGridProps) => {
+  if (loading) return <Loader />;
+  if (errorText)
+    return <TextComponent text={errorText} textStyle={typography.errorText} />;
+
+  return (
+    <Column align="center" justify="center" gap={40}>
       {countries.map((country: GridCountry) => (
-        <TextComponent text={country?.name?.common} key={country?.cca3} />
+        <CountryCard country={country} key={country?.cca3} />
       ))}
     </Column>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    width: 264,
+    borderRadius: 5,
+  },
+  flag: {
+    width: "100%",
+    borderTopLeftRadius: 5,
+    borderTopRightRadius: 5,
+  },
+});
 
 export default CountryGrid;
