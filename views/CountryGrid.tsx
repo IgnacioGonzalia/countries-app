@@ -5,9 +5,9 @@ import { useTheme } from "../core/context/ThemeContext";
 import { typography } from "../core/theme/Typography";
 import Space from "../components/layout/Space";
 import Column from "../components/layout/Column";
-import Row from "../components/layout/Row";
 import TextComponent from "../components/TextComponent";
 import Loader from "./Loader";
+import DataRow from "../components/DataRow";
 
 interface CountryGridProps {
   countries: GridCountry[];
@@ -19,20 +19,6 @@ interface CountryGridProps {
 // Maps each flag URL to its calculated aspect ratio (width / height).
 // This way, Image.getSize is only called once per unique URL — not once per card per render.
 const flagRatioCache = new Map<string, number>();
-
-const renderDataRow = (label: string, data: number | string) => (
-  <Row>
-    <TextComponent
-      text={`${label}: `}
-      textStyle={typography.countryCardDataLabel}
-    />
-    {/* Review south africa and palestine capitals, there are more than one, and may broke the card limits */}
-    <TextComponent
-      text={data === null ? "-" : String(data)}
-      textStyle={typography.countryCardData}
-    />
-  </Row>
-);
 
 const CountryCard = ({ country }: { country: GridCountry }) => {
   const { colors } = useTheme();
@@ -76,9 +62,12 @@ const CountryCard = ({ country }: { country: GridCountry }) => {
           textStyle={typography.countryCardName}
         />
         <Column gap={8}>
-          {renderDataRow("Population", country?.population?.toLocaleString())}
-          {renderDataRow("Region", country?.region)}
-          {renderDataRow("Capital", country?.capital?.join(", "))}
+          <DataRow
+            label="Population"
+            value={country?.population?.toLocaleString()}
+          />
+          <DataRow label="Region" value={country?.region} />
+          <DataRow label="Capital" value={country?.capital?.join(", ")} />
         </Column>
       </Column>
 
