@@ -1,35 +1,18 @@
-import { useEffect, useState } from "react";
+import { Image, ScrollView, StyleSheet, TextInput } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useTheme } from "../core/context/ThemeContext";
-import { getAllCountries } from "../services/CountriesServices";
-import { ScrollView } from "react-native";
-import { GridCountry } from "../core/types/GridCountry";
 import Navbar from "../views/Navbar";
 import CountryGrid from "../views/CountryGrid";
 import Space from "../components/layout/Space";
+import Row from "../components/layout/Row";
+import Column from "../components/layout/Column";
+import { useTheme } from "../core/context/ThemeContext";
+import { typography } from "../core/theme/Typography";
+import { useCountries } from "../hooks/useCountries";
 
 const HomeScreen = () => {
-  const { colors } = useTheme();
-  const [loading, setLoading] = useState<boolean>(false);
-  const [countries, setCountries] = useState<GridCountry[]>([]);
-  const [errorText, setErrorText] = useState<string | null>(null);
-
-  useEffect(() => {
-    const getCountries = async () => {
-      setLoading(true);
-      try {
-        const response = await getAllCountries();
-        setCountries(response);
-      } catch (error) {
-        console.error("Error fetching countries.", error);
-        setErrorText("Error fetching countries, try again later.");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    getCountries();
-  }, []);
+  const { colors, theme } = useTheme();
+  const { countries, searchText, setSearchText, loading, errorText } =
+    useCountries();
 
   return (
     <SafeAreaView
@@ -41,18 +24,52 @@ const HomeScreen = () => {
         showsVerticalScrollIndicator={false}
         style={{ backgroundColor: colors.background }}
       >
-        <Space height={32} />
+        <Column style={{ paddingHorizontal: 16 }}>
+          <Space height={32} />
 
-        <CountryGrid
-          countries={countries}
-          loading={loading}
-          errorText={errorText}
-        />
+          <Row
+            gap={26}
+            align="center"
+            style={{ ...styles.input, backgroundColor: colors.cardBg }}
+          >
+            <Image
+              source={require("../assets/images/search.png")}
+              tintColor={colors.searchIcon}
+            />
+            <TextInput
+              value={searchText}
+              placeholder="Search for a country..."
+              onChangeText={setSearchText}
+              style={{ ...typography.inputText, color: colors.inputText }}
+              autoCorrect={false}
+              keyboardAppearance={theme === "dark" ? "dark" : "light"}
+              placeholderTextColor={colors.inputText}
+              returnKeyType="done"
+              maxLength={50}
+            />
+          </Row>
 
-        <Space height={64} />
+          <Space height={32} />
+
+          <CountryGrid
+            countries={countries}
+            loading={loading}
+            errorText={errorText}
+          />
+
+          <Space height={64} />
+        </Column>
       </ScrollView>
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  input: {
+    paddingVertical: 16,
+    paddingHorizontal: 32,
+    borderRadius: 5,
+  },
+});
 
 export default HomeScreen;

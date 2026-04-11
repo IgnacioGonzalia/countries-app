@@ -42,4 +42,10 @@ export const typography = StyleSheet.create({
     fontSize: 14,
     lineHeight: 16,
   },
+  inputText: {
+    flex: 1,
+    fontFamily: "NunitoSansRegular",
+    fontSize: 12,
+    lineHeight: 16,
+  },
 });
