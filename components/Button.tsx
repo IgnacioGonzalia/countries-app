@@ -13,6 +13,12 @@ interface ButtonProps {
   icon?: React.ReactNode;
   iconStyle?: ViewStyle;
   gap?: number;
+  justify?:
+    | "flex-start"
+    | "center"
+    | "flex-end"
+    | "space-between"
+    | "space-around";
 }
 
 const Button = ({
@@ -25,11 +31,12 @@ const Button = ({
   icon = <></>,
   iconStyle = {},
   gap = 0,
+  justify = undefined,
 }: ButtonProps) => {
   return (
     <TouchableOpacity onPress={onPress} style={style} activeOpacity={0.7}>
       {orientation === "horizontal" ? (
-        <Row reverse={reverse} gap={gap}>
+        <Row justify={justify} reverse={reverse} gap={gap}>
           <TextComponent text={text} textStyle={textStyle} />
           <View style={iconStyle}>{icon}</View>
         </Row>

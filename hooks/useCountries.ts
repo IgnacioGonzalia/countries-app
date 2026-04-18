@@ -2,10 +2,11 @@ import { useEffect, useState } from "react";
 import { GridCountry } from "../core/types/GridCountry";
 import {
   getAllCountries,
+  getCountriesByRegion,
   getCountriesByTextSearch,
 } from "../services/CountriesServices";
 
-export const useCountries = () => {
+export const useCountries = (region: string | null) => {
   const [countries, setCountries] = useState<GridCountry[]>([]);
   const [searchText, setSearchText] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
@@ -16,7 +17,9 @@ export const useCountries = () => {
       const getCountries = async () => {
         setLoading(true);
         try {
-          const response = await getAllCountries();
+          const response = region
+            ? await getCountriesByRegion(region)
+            : await getAllCountries();
           setErrorText(null);
           setCountries(response);
         } catch (error) {
@@ -46,7 +49,7 @@ export const useCountries = () => {
     }, 500);
 
     return () => clearTimeout(timer);
-  }, [searchText]);
+  }, [searchText, region]);
 
   return {
     countries,

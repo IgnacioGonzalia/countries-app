@@ -20,3 +20,12 @@ export const getCountriesByTextSearch = async (
   );
   return response.data;
 };
+
+export const getCountriesByRegion = async (
+  region: string,
+): Promise<GridCountry[]> => {
+  const response = await api.get(
+    `/region/${region}?fields=${GRID_COUNTRY_FIELDS}`,
+  );
+  return response.data;
+};
