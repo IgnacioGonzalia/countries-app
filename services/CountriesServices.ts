@@ -15,6 +15,8 @@ export const getAllCountries = async (): Promise<GridCountry[]> => {
 export const getCountriesByTextSearch = async (
   text: string,
 ): Promise<GridCountry[]> => {
-  const response = await api.get(`/name/${text}?fields=${GRID_COUNTRY_FIELDS}`);
+  const response = await api.get(
+    `/translation/${text}?fields=${GRID_COUNTRY_FIELDS}`,
+  );
   return response.data;
 };
