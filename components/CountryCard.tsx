@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react";
 import { Image, StyleSheet } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { useTheme } from "../core/context/ThemeContext";
 import { GridCountry } from "../core/types/GridCountry";
+import { RootStackParamList } from "../core/types/Navigation";
 import { typography } from "../core/theme/Typography";
+import Button from "./Button";
 import Column from "./layout/Column";
 import Space from "./layout/Space";
 import TextComponent from "./TextComponent";
@@ -13,8 +17,11 @@ import DataRow from "./DataRow";
 // This way, Image.getSize is only called once per unique URL — not once per card per render.
 const flagRatioCache = new Map<string, number>();
 
+type NavProp = NativeStackNavigationProp<RootStackParamList, "home">;
+
 const CountryCard = ({ country }: { country: GridCountry }) => {
   const { colors } = useTheme();
+  const navigation = useNavigation<NavProp>();
   const [aspectRatio, setAspectRatio] = useState(3 / 2);
 
   useEffect(() => {
@@ -42,31 +49,37 @@ const CountryCard = ({ country }: { country: GridCountry }) => {
   }, [country.flags.png]);
 
   return (
-    <Column style={{ ...styles.container, backgroundColor: colors.cardBg }}>
-      <Image
-        source={{ uri: country?.flags?.png }}
-        style={[styles.flag, { aspectRatio }]}
-      />
-
-      <Space height={24} />
-
-      <Column style={{ paddingHorizontal: 24 }} gap={16}>
-        <TextComponent
-          text={country?.name?.common ?? "-"}
-          textStyle={typography.countryCardName}
+    <Button
+      onPress={() =>
+        navigation.navigate("country_screen", { cca3: country.cca3 })
+      }
+    >
+      <Column style={{ ...styles.container, backgroundColor: colors.cardBg }}>
+        <Image
+          source={{ uri: country?.flags?.png }}
+          style={[styles.flag, { aspectRatio }]}
         />
-        <Column gap={8}>
-          <DataRow
-            label="Population"
-            value={country?.population?.toLocaleString()}
-          />
-          <DataRow label="Region" value={country?.region} />
-          <DataRow label="Capital" value={country?.capital?.join(", ")} />
-        </Column>
-      </Column>
 
-      <Space height={46} />
-    </Column>
+        <Space height={24} />
+
+        <Column style={{ paddingHorizontal: 24 }} gap={16}>
+          <TextComponent
+            text={country?.name?.common ?? "-"}
+            textStyle={typography.countryCardName}
+          />
+          <Column gap={8}>
+            <DataRow
+              label="Population"
+              value={country?.population?.toLocaleString()}
+            />
+            <DataRow label="Region" value={country?.region} />
+            <DataRow label="Capital" value={country?.capital?.join(", ")} />
+          </Column>
+        </Column>
+
+        <Space height={46} />
+      </Column>
+    </Button>
   );
 };
 

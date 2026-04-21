@@ -48,4 +48,13 @@ export const typography = StyleSheet.create({
     fontSize: 12,
     lineHeight: 16,
   },
+  countryScreenName: {
+    fontFamily: "NunitoSansExtraBold",
+    fontSize: 22,
+  },
+  countryScreenSubtitle: {
+    fontFamily: "NunitoSansSemiBold",
+    fontSize: 16,
+    lineHeight: 24,
+  },
 });

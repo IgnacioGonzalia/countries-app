@@ -5,7 +5,7 @@ import Row from "./layout/Row";
 
 interface ButtonProps {
   onPress: () => void;
-  text: string;
+  text?: string;
   textStyle?: TextStyle;
   orientation?: "horizontal" | "vertical";
   reverse?: boolean;
@@ -19,6 +19,7 @@ interface ButtonProps {
     | "flex-end"
     | "space-between"
     | "space-around";
+  children?: React.ReactNode;
 }
 
 const Button = ({
@@ -32,20 +33,22 @@ const Button = ({
   iconStyle = {},
   gap = 0,
   justify = undefined,
+  children,
 }: ButtonProps) => {
   return (
     <TouchableOpacity onPress={onPress} style={style} activeOpacity={0.7}>
-      {orientation === "horizontal" ? (
-        <Row justify={justify} reverse={reverse} gap={gap}>
-          <TextComponent text={text} textStyle={textStyle} />
-          <View style={iconStyle}>{icon}</View>
-        </Row>
-      ) : (
-        <Column reverse={reverse} gap={gap}>
-          <TextComponent text={text} textStyle={textStyle} />
-          <View style={iconStyle}>{icon}</View>
-        </Column>
-      )}
+      {children ??
+        (orientation === "horizontal" ? (
+          <Row justify={justify} reverse={reverse} gap={gap}>
+            <TextComponent text={text ?? ""} textStyle={textStyle} />
+            <View style={iconStyle}>{icon}</View>
+          </Row>
+        ) : (
+          <Column reverse={reverse} gap={gap}>
+            <TextComponent text={text ?? ""} textStyle={textStyle} />
+            <View style={iconStyle}>{icon}</View>
+          </Column>
+        ))}
     </TouchableOpacity>
   );
 };
