@@ -30,16 +30,14 @@ A production-ready countries explorer built with React Native and Expo, based on
 
 ## Demo
 
-> Add your GIFs or screenshots here
-
 <div align="center">
-  <img src="./assets/demo/home.gif" width="300" />
+  <img src="./assets/demo/search.gif" width="300" />
   <p><strong>Home & Search</strong> — debounced search with region filter</p>
 
-  <img src="./assets/demo/detail.gif" width="300" />
+  <img src="./assets/demo/navigation.gif" width="300" />
   <p><strong>Country Detail</strong> — deep navigation through border countries</p>
 
-  <img src="./assets/demo/theme.gif" width="300" />
+  <img src="./assets/demo/themes.gif" width="300" />
   <p><strong>Theme Toggle</strong> — light/dark switch persisted across sessions</p>
 </div>
 
