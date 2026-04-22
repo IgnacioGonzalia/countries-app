@@ -53,6 +53,7 @@ const CountryCard = ({ country }: { country: GridCountry }) => {
       onPress={() =>
         navigation.navigate("country_screen", { cca3: country.cca3 })
       }
+      style={styles.shadow}
     >
       <Column style={{ ...styles.container, backgroundColor: colors.cardBg }}>
         <Image
@@ -92,6 +93,13 @@ const styles = StyleSheet.create({
     width: "100%",
     borderTopLeftRadius: 5,
     borderTopRightRadius: 5,
+  },
+  shadow: {
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.15,
+    shadowRadius: 6,
+    elevation: 5,
   },
 });
 

@@ -44,7 +44,11 @@ const HomeScreen = () => {
           <Row
             gap={26}
             align="center"
-            style={{ ...styles.input, backgroundColor: colors.cardBg }}
+            style={{
+              ...styles.input,
+              ...styles.shadow,
+              backgroundColor: colors.cardBg,
+            }}
           >
             <Image
               source={require("../assets/images/search.png")}
@@ -54,7 +58,10 @@ const HomeScreen = () => {
               value={searchText}
               placeholder="Search for a country..."
               onChangeText={setSearchText}
-              style={{ ...typography.inputText, color: colors.inputText }}
+              style={{
+                ...typography.inputText,
+                color: colors.inputText,
+              }}
               autoCorrect={false}
               keyboardAppearance={theme === "dark" ? "dark" : "light"}
               placeholderTextColor={colors.inputText}
@@ -65,7 +72,7 @@ const HomeScreen = () => {
 
           <Space height={40} />
 
-          <View ref={buttonRef} style={{ width: 200 }}>
+          <View ref={buttonRef} style={{ ...styles.shadow, width: 200 }}>
             <Button
               onPress={handleFilterPress}
               text={region ?? "Filter by Region"}
@@ -119,6 +126,13 @@ const styles = StyleSheet.create({
     paddingLeft: 24,
     paddingRight: 19,
     borderRadius: 5,
+  },
+  shadow: {
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.15,
+    shadowRadius: 6,
+    elevation: 5,
   },
 });
 

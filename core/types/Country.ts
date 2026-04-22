@@ -13,7 +13,7 @@ export interface Country {
   region: string;
   subregion: string;
   capital: string[];
-  topLevelDomain: string;
+  tld: string[];
   cca3: string;
   currencies: Record<string, { name: string; symbol: string }>;
   languages: Record<string, string>;

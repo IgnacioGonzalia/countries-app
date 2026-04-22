@@ -8,7 +8,7 @@ const api = axios.create({
 
 const GRID_COUNTRY_FIELDS = "name,flags,population,region,capital,cca3";
 const COUNTRY_SCREEN_FIELDS =
-  "flags,name,population,region,subregion,capital,topLevelDomain,currencies,languages,borders,cca3";
+  "flags,name,population,region,subregion,capital,tld,currencies,languages,borders,cca3";
 
 export const getAllCountries = async (): Promise<GridCountry[]> => {
   const response = await api.get(`/all?fields=${GRID_COUNTRY_FIELDS}`);

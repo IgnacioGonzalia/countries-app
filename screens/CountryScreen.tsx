@@ -90,9 +90,9 @@ const CountryScreen = ({ route }: Props) => {
       edges={["top"]}
       style={{ flex: 1, backgroundColor: colors.navbarBg }}
     >
-      <ScrollView>
-        <Navbar />
+      <Navbar />
 
+      <ScrollView>
         <Column style={styles.container}>
           <Space height={40} />
 
@@ -160,7 +160,7 @@ const CountryScreen = ({ route }: Props) => {
           <Column gap={12}>
             <DataRow
               label="Top Level Domain"
-              value={countryData?.topLevelDomain ?? "-"}
+              value={countryData?.tld?.join(", ") ?? "-"}
             />
             <DataRow
               label="Currencies"
